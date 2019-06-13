@@ -144,7 +144,7 @@ class Game extends Component {
             cells.push(item);
         }
         
-        if(cells.length < allCells.length / 2) {
+        if(this.state.count > allCells.length / 2 || this.state.systemCount > allCells.length / 2) {
             clearInterval(this.state.interval);
             this.endGame();
             return false;
