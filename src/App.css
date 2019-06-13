@@ -1,33 +1,110 @@
-.App {
-  text-align: center;
+.container {
+    display: flex;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.game-board {
+    width: 75%;
+    border-right: 1px solid #e2e2e2;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.leader-board {
+    width: 25%;
 }
 
-.App-link {
-  color: #61dafb;
+.leaders {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.leader-item {
+    padding: 10px 30px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    background-color: #a4acb5;
+    color: #484e52;
+    margin-bottom: 5px;
+}
+.user {
+  background-color: darkseagreen;
+}
+
+.active {
+  background-color: dodgerblue;
+}
+
+.system {
+  background-color: red;
+}
+
+.menu {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.table-container {
+    display: flex;
+    justify-content: center;
+}
+
+.dropdown {
+    padding: 10px 30px;
+    background-color: #a4acb5;
+    border-radius: 3px;
+    color: #484e52;
+    font-weight: bold;
+    margin: 0 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+.input {
+    padding: 10px 30px;
+    background-color: #e2e2e2;
+    border-radius: 3px;
+    color: #484e52;
+    font-weight: bold;
+    margin: 0 10px;
+    outline: none;
+    border: none;
+}
+
+.button {
+    padding: 10px 30px;
+    background-color: lightslategrey;
+    border-radius: 3px;
+    color: #484e52;
+    font-weight: bold;
+    margin: 0 10px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+.table {
+    table-layout: fixed;
+    width: 50%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #e2e2e2;
+}
+
+td {
+    width: 2%;
+    padding: 2%;
+    cursor: pointer;
 }
