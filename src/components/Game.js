@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 class Game extends Component {
-    
+
     state = {
         data: '',
         user: '',
@@ -18,9 +18,10 @@ class Game extends Component {
         leadBoard: '',
         endGame: false
     };
+
     
     componentDidMount() {
-        let url = 'http://starnavi-frontend-test-task.herokuapp.com/';
+        let url = 'http://localhost:5000/';
         
         axios.get(url + 'game-settings')
             .then(response => {
@@ -38,12 +39,14 @@ class Game extends Component {
 
     generateDate = () => {
         const date = new Date();
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
 
         let dd = date.getDate();
         if (dd < 10) dd = '0' + dd;
 
-        let mm = date.getMonth() + 1;
-        if (mm < 10) mm = '0' + mm;
+        let mm = monthNames[date.getMonth()];
 
         let yy = date.getFullYear() % 100;
         if (yy < 10) yy = '0' + yy;
@@ -54,7 +57,7 @@ class Game extends Component {
         let hour = date.getHours();
         if(hour < 10) hour = '0' + hour;
 
-        return hour + ':' + min + '; ' + dd + '.' + mm + '.' + yy;
+        return hour + ':' + min + '; ' + dd + ' ' + mm + ' ' + yy;
     };
     
     setModeOptions() {
@@ -168,10 +171,9 @@ class Game extends Component {
     };
     
     endGame = () => {
-        let url = 'http://starnavi-frontend-test-task.herokuapp.com/';
+        let url = 'http://localhost:5000/';
         
         if(this.state.systemCount > this.state.count) {
-            this.setState({message: "You lose"});
             
             let body = JSON.stringify({
                 id: Math.random(),
@@ -181,26 +183,24 @@ class Game extends Component {
             
             axios.post(url + 'winners', body, {
                 headers : {
-                    "Content-Type" : 'application/json'
+                    "Content-Type" : 'application/json',
                 }
             })
-                .then(response => {
-                    if(response.status === 200) {
-                        this.setState(
-                            {
-                                message: "Computer win", 
-                                endGame: true, 
-                                leadBoard: [...this.state.leadBoard, JSON.parse(body)]
-                            }
-                        );
-                    }
+                .then(() => {
+                    this.setState(
+                        {
+                            message: "Computer win", 
+                            endGame: true, 
+                            leadBoard: [...this.state.leadBoard, JSON.parse(body)]
+                        }
+                    );
                 })
                 .catch(err => console.error(err));
             return false;
         }
         
         if(this.state.systemCount < this.state.count) {
-
+            
             let body = JSON.stringify({
                 id: Math.random(),
                 winner: this.state.user,
@@ -209,19 +209,17 @@ class Game extends Component {
 
             axios.post(url + 'winners', body, {
                 headers : {
-                    "Content-Type" : 'application/json'
+                    "Content-Type" : 'application/json',
                 }
             })
-                .then(response => {
-                    if(response.status === 200) {
-                        this.setState(
-                            {
-                                message: `${this.state.user} win`, 
-                                endGame: true, 
-                                leadBoard: [...this.state.leadBoard, JSON.parse(body)]
-                            }
-                            );
-                    }
+                .then(() => {
+                    this.setState(
+                        {
+                            message: `${this.state.user} win`, 
+                            endGame: true, 
+                            leadBoard: [...this.state.leadBoard, JSON.parse(body)]
+                        }
+                    );
                 })
                 .catch(err => console.error(err));
             
@@ -257,10 +255,12 @@ class Game extends Component {
             <div className='container'>
                 <div className='game-board'>
                     <div className='menu'>
-                        <select name="mode"  onChange={this.setMode} className='dropdown'>
-                            <option value="default">Pick game mode</option>
-                            {this.setModeOptions()}
-                        </select>
+                        <div className='dropdown'>
+                            <select name="mode"  onChange={this.setMode}>
+                                <option value="default">Pick game mode</option>
+                                {this.setModeOptions()}
+                            </select> 
+                        </div>
                         <input type="text" name='user' placeholder='Enter your name' onChange={this.setUser} className='input'/>
                         {
                             !this.state.endGame ? <button onClick={this.play} className='button'>Play</button> : <button onClick={this.playAgain} className='button'> Play again</button>    
@@ -271,7 +271,7 @@ class Game extends Component {
                     {
                         this.state.openTable &&
                         <div className='table-container'>
-                            <table width="70%" border="1" className='table'>
+                            <table border="1" className='table'>
                                 <tbody>
                                 {this.gameTable()}
                                 </tbody>

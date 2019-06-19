@@ -9,6 +9,8 @@
 
 .leader-board {
     width: 25%;
+    text-align: center;
+    padding: 10px;
 }
 
 .leaders {
@@ -46,6 +48,7 @@
     display: flex;
     margin-top: 20px;
     justify-content: center;
+    position: relative;
 }
 
 .message {
@@ -59,15 +62,47 @@
     justify-content: center;
 }
 
+select {
+    background: transparent;
+    overflow: hidden;
+}
+
 .dropdown {
-    padding: 10px 30px;
-    background-color: #a4acb5;
-    border-radius: 3px;
-    color: #484e52;
+    transform: translate(-5%);
+}
+
+.dropdown select {
     font-weight: bold;
-    margin: 0 10px;
-    cursor: pointer;
+    background-color: lightslategrey;
+    color: #484e52;
+    padding: 10px 30px;
+    width: 250px;
+    border: none;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
     outline: none;
+    border-radius: 2px;
+}
+
+.dropdown::before {
+    content: "⌄";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 23px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+}
+
+.dropdown:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .input {
@@ -79,6 +114,7 @@
     margin: 0 10px;
     outline: none;
     border: none;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
 }
 
 .button {
@@ -91,20 +127,32 @@
     cursor: pointer;
     outline: none;
     border: none;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
 }
 
-.table {
-    table-layout: fixed;
+.button:hover {
+    background-color: #778899d1;
+}
+
+
+table {
     width: 50%;
     border-collapse: collapse;
+}
+
+td {
+    width: 3%;
+    position: relative;
+    cursor: pointer;
+}
+
+td:after {
+    content: '';
+    display: block;
+    margin-top: 100%;
 }
 
 table, th, td {
     border: 1px solid #e2e2e2;
 }
 
-td {
-    width: 2%;
-    padding: 2%;
-    cursor: pointer;
-}
